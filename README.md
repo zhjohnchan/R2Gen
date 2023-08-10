@@ -54,10 +54,8 @@ Run `bash test_iu_xray.sh` to test a model on the IU X-Ray data.
 
 Run `bash test_mimic_cxr.sh` to test a model on the MIMIC-CXR data.
 
+Follow [CheXpert](https://github.com/MIT-LCP/mimic-cxr/tree/master/txt/chexpert) or [CheXbert](https://github.com/stanfordmlgroup/CheXbert) to extract the labels and then run `python compute_ce.py`.
+
 ## Visualization
 
 Run `bash plot_mimic_cxr.sh` to visualize the attention maps on the MIMIC-CXR data.
-
-## Clinical Efficacy
-
-Follow [CheXpert](https://github.com/MIT-LCP/mimic-cxr/tree/master/txt/chexpert) or [CheXbert](https://github.com/stanfordmlgroup/CheXbert) to extract the labels and then run `python compute_ce.py`.
