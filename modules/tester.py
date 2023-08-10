@@ -3,9 +3,11 @@ import os
 from abc import abstractmethod
 
 import cv2
+import pandas as pd
 import torch
 
 from modules.utils import generate_heatmap
+from tqdm import tqdm
 
 
 class BaseTester(object):
@@ -27,6 +29,8 @@ class BaseTester(object):
 
         self.epochs = self.args.epochs
         self.save_dir = self.args.save_dir
+        if not os.path.exists(self.save_dir):
+            os.makedirs(self.save_dir)
 
         self._load_checkpoint(args.load)
 
@@ -71,7 +75,7 @@ class Tester(BaseTester):
         self.model.eval()
         with torch.no_grad():
             test_gts, test_res = [], []
-            for batch_idx, (images_id, images, reports_ids, reports_masks) in enumerate(self.test_dataloader):
+            for batch_idx, (images_id, images, reports_ids, reports_masks) in tqdm(enumerate(self.test_dataloader)):
                 images, reports_ids, reports_masks = images.to(self.device), reports_ids.to(
                     self.device), reports_masks.to(self.device)
                 output = self.model(images, mode='sample')
@@ -83,6 +87,10 @@ class Tester(BaseTester):
                                         {i: [re] for i, re in enumerate(test_res)})
             log.update(**{'test_' + k: v for k, v in test_met.items()})
             print(log)
+
+            test_res, test_gts = pd.DataFrame(test_res), pd.DataFrame(test_gts)
+            test_res.to_csv(os.path.join(self.save_dir, "res.csv"), index=False, header=False)
+            test_gts.to_csv(os.path.join(self.save_dir, "gts.csv"), index=False, header=False)
         return log
 
     def plot(self):
@@ -96,7 +104,7 @@ class Tester(BaseTester):
 
         self.model.eval()
         with torch.no_grad():
-            for batch_idx, (images_id, images, reports_ids, reports_masks) in enumerate(self.test_dataloader):
+            for batch_idx, (images_id, images, reports_ids, reports_masks) in tqdm(enumerate(self.test_dataloader)):
                 images, reports_ids, reports_masks = images.to(self.device), reports_ids.to(
                     self.device), reports_masks.to(self.device)
                 output = self.model(images, mode='sample')
