@@ -3,7 +3,7 @@
 This is the implementation of [Generating Radiology Reports via Memory-driven Transformer](https://arxiv.org/pdf/2010.16056.pdf) at EMNLP-2020.
 
 ## News
-- The codebase is kind of old so we refer the readers to this awesome project ([ViLMedic](https://github.com/jbdel/vilmedic)).
+- The codebase is kind of old so we refer the readers to this awesome project ([ViLMedic](https://github.com/jbdel/vilmedic)). You can also check our newly released [PTUnifier](https://github.com/zhjohnchan/ptunifier), which can perform various medical image-text tasks like radiology report generation.
 - The codes for visualization and clinical efficacy are updated.
 
 ## Citations

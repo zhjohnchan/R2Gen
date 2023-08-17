@@ -9,5 +9,6 @@ python main_test.py \
 --save_dir results/mimic_cxr \
 --step_size 1 \
 --gamma 0.8 \
---seed 456789 \
---load data/model_mimic_cxr.pth
+--seed 42 \
+--load data/model_mimic_cxr.pth \
+--beam_size 2
